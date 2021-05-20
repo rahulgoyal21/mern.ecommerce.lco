@@ -1,14 +1,41 @@
-const express = require("express");
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
-app.get("/", (req, res) => {
-    return res.send("Hello i am there");
-})
+//DB Connection
+mongoose
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    connectTimeoutMS: 3000
+  })
+  .then(() => {
+    console.log('<----DB CONNECTED---->');
+  })
+  .catch(err => {
+    console.log('<--------------DB NOT CONNECTED----------->');
+  });
 
+//Middlewares
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(cors());
 
-const PORT = 8000;
+//Routes
+app.use('/api', authRoutes);
 
+//PORT
+const PORT = process.env.PORT || 8000;
+
+//Starting a server
 app.listen(PORT, () => {
-    console.log(`Server started listening on PORT ${PORT}`);
-})
+  console.log(`Server started listening on PORT ${PORT}`);
+});
