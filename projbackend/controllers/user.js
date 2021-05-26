@@ -2,6 +2,7 @@ const { TokenExpiredError } = require('jsonwebtoken');
 const User = require('../models/user');
 const Order = require('../models/order');
 /**
+ * PARAMETER EXTRACTOR (userId)
  * @method getUserById
  * @summary Middleware Helper methods to set the User to req.profile
  */

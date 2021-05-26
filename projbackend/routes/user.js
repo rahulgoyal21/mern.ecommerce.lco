@@ -8,7 +8,7 @@ const {
 } = require('../controllers/user');
 const { isSignedIn, isAuthenticated, isAdmin } = require('../controllers/auth');
 
-//Middleware to see the Param 'userId'
+//Parameter extractor to see the Param 'userId'
 router.param('userId', getUserById);
 
 router.get('/user/:userId', isSignedIn, isAuthenticated, getUser);

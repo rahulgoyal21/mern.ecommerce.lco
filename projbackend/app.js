@@ -8,6 +8,7 @@ const cors = require('cors');
 //My Routes
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
+const categoryRoutes = require('./routes/category');
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(cors());
 //Routes
 app.use('/api', authRoutes);
 app.use('/api', userRoutes);
+app.use('/api', categoryRoutes);
 
 //PORT
 const PORT = process.env.PORT || 8000;
