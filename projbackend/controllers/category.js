@@ -16,7 +16,7 @@ exports.getCategoryById = (req, res, next, id) => {
 
 /**
  * @method createCategory
- * @summary Create the category by a user by validation thar user rights
+ * @summary Create the category by a user by validating that user rights
  * @access Private
  * @route POST /api/category/create/:userId
  */
@@ -98,7 +98,7 @@ exports.updateCategory = (req, res) => {
  * @access Private
  * @route DELETE /api/category/:categoryId/:userId
  */
-exports.removeCategory = async (req, res) => {
+exports.removeCategory = (req, res) => {
   try {
     //Since req.category is an object from the database
     const category = req.category;

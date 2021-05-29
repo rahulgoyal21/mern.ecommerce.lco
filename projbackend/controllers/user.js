@@ -93,7 +93,7 @@ exports.pushOrderInPurchaseList = async (req, res, next) => {
     });
   });
 
-  //'new' flag tells to send the update object, not the old one
+  //'new' flag tells to send the updated object, not the old one
   try {
     const userPurchases = await User.findOneAndUpdate(
       { _id: req.profile._id },
