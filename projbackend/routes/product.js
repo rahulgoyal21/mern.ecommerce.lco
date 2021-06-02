@@ -7,7 +7,8 @@ const {
   photo,
   updateProduct,
   deleteProduct,
-  getAllProducts
+  getAllProducts,
+  getAllUniqueCategories
 } = require('../controllers/product');
 const { getUserById } = require('../controllers/user');
 const { isSignedIn, isAuthenticated, isAdmin } = require('../controllers/auth');
@@ -29,6 +30,7 @@ router.post(
 router.get('/product/:productId', getProduct);
 router.get('/product/photo/:productId', photo);
 router.get('/products', getAllProducts);
+router.get('/products/categories', getAllUniqueCategories);
 
 //Update
 router.put(

@@ -203,3 +203,38 @@ exports.getAllProducts = async (req, res) => {
     return res.status(500).send('Internal server error');
   }
 };
+
+/**
+ * @method getAllUniqueCategories
+ * @summary Get all the Products' categories
+ * @access Public
+ * @route GET /products/categories
+ */
+exports.getAllUniqueCategories = (req, res) => {
+  Product.distinct('category', {}, (err, category) => {
+    if (err) return res.status(400).json({ error: 'No category found' });
+    return res.json(category);
+  });
+};
+
+/**
+ * @method updateStock
+ * @summary Middleware to update the stock of a product in cart
+ */
+exports.updateStock = (req, res, next) => {
+  let bulkOperations = req.body.order.products.map(prod => {
+    return {
+      updateOne: {
+        filter: { _id: prod._id },
+        update: {
+          $inc: { stock: -prod.count, sold: +prod.count }
+        }
+      }
+    };
+  });
+
+  Product.bulkWrite(bulkOperations, {}, (err, products) => {
+    if (err) return res.status(400).json({ error: 'Bulk operation failed!' });
+    next();
+  });
+};
